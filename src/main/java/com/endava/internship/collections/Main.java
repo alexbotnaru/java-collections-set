@@ -60,5 +60,53 @@ public class Main {
         for (Object obj : genericObjectsArray) {
             System.out.println(obj);
         }
+
+        System.out.println("\n containsAll()");
+        System.out.println("Student set contine student list: " + studentSet.containsAll(studentList));
+        Student andrei = new Student("Andrei", LocalDate.of(2000, Month.OCTOBER, 30), "student usmf");
+        studentList.add(andrei);
+        System.out.println("Student set contine student list dupa modificare: " + studentSet.containsAll(studentList));
+
+        List<String> stringList = new ArrayList<>();
+        stringList.add("test");
+        try {
+            System.out.println("Student set contine stringList: " + studentSet.containsAll(stringList));
+
+        } catch (UnsupportedOperationException e){
+            e.printStackTrace();
+        }
+
+        System.out.println("\n retainAll()");
+        System.out.println("Initial studentSet: ");
+        for (Student stud : studentSet) {
+            System.out.println(stud);
+        }
+        System.out.println("\nstudentList:");
+        for (Student stud : studentList) {
+            System.out.println(stud);
+        }
+        studentSet.retainAll(studentList);
+        System.out.println("\nStudentSet dupa retainAll(studentList)");
+        for (Student stud : studentSet) {
+            System.out.println(stud);
+        }
+
+        System.out.println("\nremoveAll()");
+        studentSet.add(alex);
+        System.out.println("Initial studentSet: ");
+        for (Student stud : studentSet) {
+            System.out.println(stud);
+        }
+        System.out.println("\nstudentList:");
+        for (Student stud : studentList) {
+            System.out.println(stud);
+        }
+        studentSet.removeAll(studentList);
+        System.out.println("\nStudentSet dupa removeAll(studentList)");
+        for (Student stud : studentSet) {
+            System.out.println(stud);
+        }
+
+
     }
 }

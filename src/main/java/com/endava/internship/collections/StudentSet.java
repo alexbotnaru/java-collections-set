@@ -1,7 +1,11 @@
 package com.endava.internship.collections;
 
 import java.lang.reflect.Array;
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.NavigableMap;
+import java.util.Set;
+import java.util.TreeMap;
 
 public class StudentSet<Student> implements Set<Student> {
 
@@ -83,19 +87,49 @@ public class StudentSet<Student> implements Set<Student> {
 
     @Override
     public boolean containsAll(Collection<?> collection) {
-        //Ignore this for homework
-        throw new UnsupportedOperationException();
+        boolean contains = true;
+
+        for (Object obj : collection) {
+            if (!(obj instanceof com.endava.internship.collections.Student))
+                throw new UnsupportedOperationException("Collection should store instances of Student");
+
+            if (!map.containsKey(obj)) {
+                contains = false;
+                break;
+            }
+        }
+        return contains;
     }
 
     @Override
     public boolean retainAll(Collection<?> collection) {
-        //Ignore this for homework
-        throw new UnsupportedOperationException();
+        boolean changed = false;
+
+        Iterator<Student> iterator = iterator();
+
+        while (iterator.hasNext()){
+            Student student = iterator.next();
+            if (!collection.contains(student)){
+                iterator.remove();
+                changed = true;
+            }
+        }
+        return changed;
     }
 
     @Override
     public boolean removeAll(Collection<?> collection) {
-        //Ignore this for homework
-        throw new UnsupportedOperationException();
+        boolean changed = false;
+
+        Iterator<Student> iterator = iterator();
+
+        while (iterator.hasNext()){
+            Student student = iterator.next();
+            if (collection.contains(student)){
+                iterator.remove();
+                changed = true;
+            }
+        }
+        return changed;
     }
 }
