@@ -7,12 +7,14 @@ import java.util.List;
 import java.util.Set;
 
 public class Main {
+    static final String ALEXANDRU = "Alexandru";
+    static final String MARCEL = "Marcel";
     public static void main(String[] args) {
-        Student alex = new Student("Alexandru", LocalDate.of(1999, Month.OCTOBER, 4), "student utm");
-        Student alex2 = new Student("Alexandru", LocalDate.of(2000, Month.OCTOBER, 6), "student usm");
-        Student alex3 = new Student("Alexandru", LocalDate.of(2000, Month.OCTOBER, 4), "student asem");
+        Student alex = new Student(ALEXANDRU, LocalDate.of(1999, Month.OCTOBER, 4), "student utm");
+        Student alex2 = new Student(ALEXANDRU, LocalDate.of(2000, Month.OCTOBER, 6), "student usm");
+        Student alex3 = new Student(ALEXANDRU, LocalDate.of(2000, Month.OCTOBER, 4), "student asem");
         Student ion = new Student("Ion", LocalDate.of(2002, Month.OCTOBER, 4), "student ulim");
-        Student marcel = new Student("Marcel", LocalDate.of(2000, Month.OCTOBER, 6), "student utm");
+        Student marcel = new Student(MARCEL, LocalDate.of(2000, Month.OCTOBER, 6), "student utm");
 
         Set<Student> studentSet = new StudentSet<>();
         studentSet.add(alex2);
@@ -28,8 +30,8 @@ public class Main {
 
         System.out.println("Size after adding = " + studentSet.size());
 
-        Student marcel2 = new Student("Marcel", LocalDate.of(2000, Month.OCTOBER, 30), "student usmf");
-        Student marcel3 = new Student("Marcel", LocalDate.of(2000, Month.DECEMBER, 6), "student utm");
+        Student marcel2 = new Student(MARCEL, LocalDate.of(2000, Month.OCTOBER, 30), "student usmf");
+        Student marcel3 = new Student(MARCEL, LocalDate.of(2000, Month.DECEMBER, 6), "student utm");
 
         List<Student> studentList = new ArrayList<>();
         studentList.add(marcel2);
@@ -69,14 +71,15 @@ public class Main {
         studentList.add(andrei);
         System.out.println("Student set contine student list dupa modificare: " + studentSet.containsAll(studentList));
 
-        List<String> stringList = new ArrayList<>();
-        stringList.add("test");
-        try {
-            System.out.println("Student set contine stringList: " + studentSet.containsAll(stringList));
-
-        } catch (UnsupportedOperationException e){
-            e.printStackTrace();
-        }
+        //To test containsAll() with other type then Student
+//        List<String> stringList = new ArrayList<>();
+//        stringList.add("test");
+//        try {
+//            System.out.println("Student set contine stringList: " + studentSet.containsAll(stringList));
+//
+//        } catch (UnsupportedOperationException e){
+//            e.printStackTrace();
+//        }
 
         System.out.println("\n retainAll()");
         System.out.println("Initial studentSet: ");
@@ -109,6 +112,27 @@ public class Main {
             System.out.println(stud);
         }
 
+        System.out.println("------------------Testing StudentSet<T> with Strings------------------------");
+
+        Set<String> strings = new StudentSet<>();
+        strings.add("foo");
+        strings.add("bar");
+        strings.add("abc");
+
+        Set<String> strings2 = new StudentSet<>();
+        strings2.add("ewqeqwsd");
+        strings2.add("21321sf");
+        strings2.add("ewqeqwsd");
+        strings.addAll(strings2);
+        for (String string : strings) {
+            System.out.println(string);
+        }
+        System.out.println(strings.containsAll(strings2));
+        strings.removeAll(strings2);
+        System.out.println("After string.removeAll(strings2)");
+        for (String string : strings) {
+            System.out.println(string);
+        }
 
     }
 }

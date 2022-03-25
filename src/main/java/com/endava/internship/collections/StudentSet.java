@@ -7,9 +7,9 @@ import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
 
-public class StudentSet<Student> implements Set<Student> {
+public class StudentSet<T> implements Set<T> {
 
-    private NavigableMap<Student, Object> map;
+    private NavigableMap<T, Object> map;
 
     private static final Object DUMMY = new Object();
 
@@ -33,7 +33,7 @@ public class StudentSet<Student> implements Set<Student> {
     }
 
     @Override
-    public Iterator<Student> iterator() {
+    public Iterator<T> iterator() {
         //TODO maybe implement own iterator
         return map.navigableKeySet().iterator();
     }
@@ -41,7 +41,7 @@ public class StudentSet<Student> implements Set<Student> {
     @Override
     public Object[] toArray() {
         Object[] array = new Object[map.size()];
-        Iterator<Student> iterator = iterator();
+        Iterator<T> iterator = iterator();
         for (int i = 0; i < array.length; i++) {
             array[i] = iterator.next();
         }
@@ -61,8 +61,8 @@ public class StudentSet<Student> implements Set<Student> {
     }
 
     @Override
-    public boolean add(Student student) {
-        return map.put(student, DUMMY) == null;
+    public boolean add(T t) {
+        return map.put(t, DUMMY) == null;
     }
 
     @Override
@@ -76,11 +76,11 @@ public class StudentSet<Student> implements Set<Student> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends Student> collection) {
+    public boolean addAll(Collection<? extends T> collection) {
         boolean changed = false;
 
-        for (Student student : collection) {
-            if (this.add(student)) changed = true;
+        for (T t : collection) {
+            if (this.add(t)) changed = true;
         }
         return changed;
     }
@@ -90,9 +90,6 @@ public class StudentSet<Student> implements Set<Student> {
         boolean contains = true;
 
         for (Object obj : collection) {
-            if (!(obj instanceof com.endava.internship.collections.Student))
-                throw new UnsupportedOperationException("Collection should store instances of Student");
-
             if (!map.containsKey(obj)) {
                 contains = false;
                 break;
@@ -105,11 +102,11 @@ public class StudentSet<Student> implements Set<Student> {
     public boolean retainAll(Collection<?> collection) {
         boolean changed = false;
 
-        Iterator<Student> iterator = iterator();
+        Iterator<T> iterator = iterator();
 
-        while (iterator.hasNext()){
-            Student student = iterator.next();
-            if (!collection.contains(student)){
+        while (iterator.hasNext()) {
+            T t = iterator.next();
+            if (!collection.contains(t)) {
                 iterator.remove();
                 changed = true;
             }
@@ -121,11 +118,11 @@ public class StudentSet<Student> implements Set<Student> {
     public boolean removeAll(Collection<?> collection) {
         boolean changed = false;
 
-        Iterator<Student> iterator = iterator();
+        Iterator<T> iterator = iterator();
 
-        while (iterator.hasNext()){
-            Student student = iterator.next();
-            if (collection.contains(student)){
+        while (iterator.hasNext()) {
+            T t = iterator.next();
+            if (collection.contains(t)) {
                 iterator.remove();
                 changed = true;
             }
