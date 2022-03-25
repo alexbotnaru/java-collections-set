@@ -3,11 +3,7 @@ package com.endava.internship.collections;
 import java.time.LocalDate;
 import java.util.Objects;
 
-/**
- * The class that defines the element that will be contained by your collection
- */
-public class Student implements Comparable //TODO consider implementing any interfaces necessary for your collection
-{
+public class Student implements Comparable {
     private String name;
     private LocalDate dateOfBirth;
     private String details;
@@ -50,6 +46,15 @@ public class Student implements Comparable //TODO consider implementing any inte
     @Override
     public int hashCode() {
         return Objects.hash(name, dateOfBirth);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", details='" + details + '\'' +
+                '}';
     }
 
     /*

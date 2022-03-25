@@ -1,20 +1,24 @@
 package com.endava.internship.collections;
 
-import java.util.*;
+import java.lang.reflect.Array;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.NavigableMap;
+import java.util.Set;
+import java.util.TreeMap;
 
-public class StudentSet<Student> implements Set<Student> {
+public class StudentSet<T> implements Set<T> {
 
-    private transient NavigableMap<Student, Object> map;
+    private NavigableMap<T, Object> map;
 
     private static final Object DUMMY = new Object();
 
-    StudentSet(){
+    StudentSet() {
         map = new TreeMap<>();
     }
 
     @Override
     public int size() {
-
         return map.size();
     }
 
@@ -29,26 +33,36 @@ public class StudentSet<Student> implements Set<Student> {
     }
 
     @Override
-    public Iterator<Student> iterator() {
+    public Iterator<T> iterator() {
         //TODO maybe implement own iterator
         return map.navigableKeySet().iterator();
     }
 
     @Override
     public Object[] toArray() {
-        //TODO
-        return new Object[0];
+        Object[] array = new Object[map.size()];
+        Iterator<T> iterator = iterator();
+        for (int i = 0; i < array.length; i++) {
+            array[i] = iterator.next();
+        }
+        return array;
     }
 
     @Override
     public <T> T[] toArray(T[] ts) {
-        //TODO
-        return null;
+        if (ts.length < this.map.size()) {
+            ts = (T[]) Array.newInstance(ts.getClass().getComponentType(), map.size());
+        }
+        Iterator<T> iterator = (Iterator<T>) iterator();
+        for (int i = 0; i < map.size(); i++) {
+            ts[i] = iterator.next();
+        }
+        return ts;
     }
 
     @Override
-    public boolean add(Student student) {
-        return map.put(student, DUMMY) == null;
+    public boolean add(T t) {
+        return map.put(t, DUMMY) == null;
     }
 
     @Override
@@ -62,26 +76,57 @@ public class StudentSet<Student> implements Set<Student> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends Student> collection) {
-        //TODO
-        return false;
+    public boolean addAll(Collection<? extends T> collection) {
+        boolean changed = false;
+
+        for (T t : collection) {
+            if (this.add(t)) changed = true;
+        }
+        return changed;
     }
 
     @Override
     public boolean containsAll(Collection<?> collection) {
-        //Ignore this for homework
-        throw new UnsupportedOperationException();
+        boolean contains = true;
+
+        for (Object obj : collection) {
+            if (!map.containsKey(obj)) {
+                contains = false;
+                break;
+            }
+        }
+        return contains;
     }
 
     @Override
     public boolean retainAll(Collection<?> collection) {
-        //Ignore this for homework
-        throw new UnsupportedOperationException();
+        boolean changed = false;
+
+        Iterator<T> iterator = iterator();
+
+        while (iterator.hasNext()) {
+            T t = iterator.next();
+            if (!collection.contains(t)) {
+                iterator.remove();
+                changed = true;
+            }
+        }
+        return changed;
     }
 
     @Override
     public boolean removeAll(Collection<?> collection) {
-        //Ignore this for homework
-        throw new UnsupportedOperationException();
+        boolean changed = false;
+
+        Iterator<T> iterator = iterator();
+
+        while (iterator.hasNext()) {
+            T t = iterator.next();
+            if (collection.contains(t)) {
+                iterator.remove();
+                changed = true;
+            }
+        }
+        return changed;
     }
 }
