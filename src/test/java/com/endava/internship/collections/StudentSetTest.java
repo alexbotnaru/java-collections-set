@@ -197,7 +197,7 @@ public class StudentSetTest {
     }
 
     @Test
-    public void containsAllShouldReturnFalseIfTheSetDoesNotContainAllTheElemenetsOfTheCollection(){
+    public void containsAllShouldReturnFalseIfTheSetDoesNotContainAllTheElementsOfTheCollection(){
         Student alex = new Student("Alex", LocalDate.of(2000, Month.OCTOBER, 4), "student asem");
         Student ion = new Student("Ion", LocalDate.of(2002, Month.OCTOBER, 4), "student ulim");
         List<Student> list = new LinkedList<>();
@@ -222,8 +222,5 @@ public class StudentSetTest {
         set.add(ion);
 
         assertFalse(set.addAll(list));
-
     }
-
-
 }

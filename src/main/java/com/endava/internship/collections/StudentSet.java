@@ -34,7 +34,6 @@ public class StudentSet<T> implements Set<T> {
 
     @Override
     public Iterator<T> iterator() {
-        //TODO maybe implement own iterator
         return map.navigableKeySet().iterator();
     }
 
