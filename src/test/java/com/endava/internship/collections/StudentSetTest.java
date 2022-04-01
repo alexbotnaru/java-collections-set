@@ -1,5 +1,11 @@
-import com.endava.internship.collections.Student;
-import com.endava.internship.collections.StudentSet;
+package com.endava.internship.collections;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,8 +16,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 
 public class StudentSetTest {
 
@@ -19,7 +23,7 @@ public class StudentSetTest {
 
     @BeforeEach
     void setUp() {
-        set = new StudentSet<Student>();
+        set = new StudentSet<>();
     }
 
     @Test
@@ -114,7 +118,6 @@ public class StudentSetTest {
         set.removeAll(list);
 
         assertEquals(1, set.size());
-
     }
 
     @Test
@@ -194,7 +197,7 @@ public class StudentSetTest {
     }
 
     @Test
-    public void containsAllShouldReturnFalseIfTheSetDoesNotContainAllTheElelemtsOfTheCollection(){
+    public void containsAllShouldReturnFalseIfTheSetDoesNotContainAllTheElemenetsOfTheCollection(){
         Student alex = new Student("Alex", LocalDate.of(2000, Month.OCTOBER, 4), "student asem");
         Student ion = new Student("Ion", LocalDate.of(2002, Month.OCTOBER, 4), "student ulim");
         List<Student> list = new LinkedList<>();
@@ -221,5 +224,6 @@ public class StudentSetTest {
         assertFalse(set.addAll(list));
 
     }
+
 
 }

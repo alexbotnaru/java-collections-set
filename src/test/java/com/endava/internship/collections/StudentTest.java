@@ -1,10 +1,10 @@
-import com.endava.internship.collections.Student;
+package com.endava.internship.collections;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.Month;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class StudentTest {
     @Test
@@ -12,7 +12,7 @@ public class StudentTest {
         Student ion = new Student("Ion", LocalDate.of(2002, Month.OCTOBER, 4), "student ulim");
         Student ion2 = new Student("Ion", LocalDate.of(2002, Month.OCTOBER, 4), "student ulim");
 
-        assertTrue(ion.equals(ion2));
+        Assertions.assertTrue(ion.equals(ion2));
 
     }
 
@@ -20,7 +20,7 @@ public class StudentTest {
     public void whenComparingAStudentToItself_EqualsShouldReturnTrue() {
         Student ion = new Student("Ion", LocalDate.of(2002, Month.OCTOBER, 4), "student ulim");
 
-        assertTrue(ion.equals(ion));
+        Assertions.assertTrue(ion.equals(ion));
     }
 
     @Test
@@ -28,15 +28,14 @@ public class StudentTest {
         Student ion = new Student("Ion", LocalDate.of(2002, Month.OCTOBER, 4), "student ulim");
         Student alex = new Student("Alex", LocalDate.of(2001, Month.JANUARY, 11), "student ulim");
 
-        assertFalse(ion.equals(alex));
-
+        Assertions.assertFalse(ion.equals(alex));
     }
 
     @Test
-    public void whenComparingAStudentToNull_EqualsShouldReturnFalse(){
+    public void whenComparingAStudentToNull_EqualsShouldReturnFalse() {
         Student ion = new Student("Ion", LocalDate.of(2002, Month.OCTOBER, 4), "student ulim");
 
-        assertFalse(ion.equals(null));
+        Assertions.assertFalse(ion.equals(null));
     }
 
     @Test
@@ -44,8 +43,7 @@ public class StudentTest {
         Student ion = new Student("Ion", LocalDate.of(2002, Month.OCTOBER, 4), "student ulim");
         String string = new String("some text");
 
-        assertFalse(ion.equals(string));
-
+        Assertions.assertFalse(ion.equals(string));
     }
 
     @Test
@@ -53,7 +51,7 @@ public class StudentTest {
         Student alex = new Student("Alex", LocalDate.of(2001, Month.JANUARY, 11), "student utm");
         Student alex2 = new Student("Alex", LocalDate.of(2001, Month.JANUARY, 11), "student ulim");
 
-        assertEquals(0, alex.compareTo(alex2));
+        Assertions.assertEquals(0, alex.compareTo(alex2));
     }
 
     @Test
@@ -61,7 +59,7 @@ public class StudentTest {
         Student alex = new Student("Alex", LocalDate.of(2001, Month.JANUARY, 11), "student utm");
         Student marcel = new Student("Marcel", LocalDate.of(2001, Month.JANUARY, 11), "student ulim");
 
-        assertTrue(marcel.compareTo(alex) > 0);
+        Assertions.assertTrue(marcel.compareTo(alex) > 0);
     }
 
     @Test
@@ -69,34 +67,58 @@ public class StudentTest {
         Student alex = new Student("Alex", LocalDate.of(2001, Month.JANUARY, 11), "student utm");
         Student marcel = new Student("Marcel", LocalDate.of(2001, Month.JANUARY, 11), "student ulim");
 
-        assertTrue(alex.compareTo(marcel) < 0);
+        Assertions.assertTrue(alex.compareTo(marcel) < 0);
     }
 
     @Test
-    public void whenComparingAStudentWithAGreaterDOBThanTheOtherStudentAndEqualNames_CompareToShouldReturnPositiveNumber(){
+    public void whenComparingAStudentWithAGreaterDOBThanTheOtherStudentAndEqualNames_CompareToShouldReturnPositiveNumber() {
         Student alex = new Student("Alex", LocalDate.of(2000, Month.OCTOBER, 18), "student utm");
         Student alex2 = new Student("Alex", LocalDate.of(2001, Month.JANUARY, 11), "student ulim");
 
-        assertTrue(alex2.compareTo(alex) > 0);
+        Assertions.assertTrue(alex2.compareTo(alex) > 0);
     }
 
     @Test
-    public void whenComparingAStudentWithDOBLessThanTheOtherStudentAndEqualNames_CompareToShouldReturnNegativeNumber(){
+    public void whenComparingAStudentWithDOBLessThanTheOtherStudentAndEqualNames_CompareToShouldReturnNegativeNumber() {
         Student alex = new Student("Alex", LocalDate.of(2000, Month.OCTOBER, 18), "student utm");
         Student alex2 = new Student("Alex", LocalDate.of(2001, Month.JANUARY, 11), "student ulim");
 
-        assertTrue(alex.compareTo(alex2) < 0);
+        Assertions.assertTrue(alex.compareTo(alex2) < 0);
     }
 
+    @Test
+    public void getNameShouldReturnTheNameOfTheStudent() {
+        final String ANDREI = "Andrei";
+        Student student = new Student(ANDREI, LocalDate.of(2000, Month.OCTOBER, 18), "student");
+
+        Assertions.assertEquals(ANDREI, student.getName());
+    }
+
+    @Test
+    public void getDateOfBirthShouldReturnTheDateOfBirthOfTheStudent() {
+        final LocalDate DOB = LocalDate.of(2000, Month.OCTOBER, 18);
+        Student student = new Student("Andrei", DOB, "student");
+
+        Assertions.assertEquals(DOB, student.getDateOfBirth());
+    }
+
+    @Test
+    public void getDetailsShouldReturnTheDetailsAboutTheStudent() {
+        final String DETAILS = "student utm";
+        Student student = new Student("Andrei", LocalDate.of(2000, Month.OCTOBER, 18), DETAILS);
+
+        Assertions.assertEquals(DETAILS, student.getDetails());
+    }
+
+    @Test
+    public void toStringShouldReturnAStringContainingTheValuesOfAllTheStudentAttributes() {
+        Student student = new Student("Andrei", LocalDate.of(2000, Month.OCTOBER, 18), "elev bravo");
+
+        String studentString = student.toString();
+        boolean isValid = studentString.contains(student.getName()) &&
+                studentString.contains(student.getDateOfBirth().toString()) &&
+                studentString.contains(student.getDetails());
+
+        Assertions.assertTrue(isValid);
+    }
 }
-
-//    @Test
-//    public void whenComparingTwoStudentsWithDifferentNames_CompareToShouldReturnPositiveOrNegativeNumber(){
-//        Student alex = new Student("Alex", LocalDate.of(2001, Month.JANUARY, 11), "student utm");
-//        Student marcel = new Student("Marcel", LocalDate.of(2001, Month.JANUARY, 11), "student ulim");
-//
-//        assertTrue(alex.compareTo(marcel) < 0);
-//        assertTrue(marcel.compareTo(alex) > 0);
-//    }
-
-
