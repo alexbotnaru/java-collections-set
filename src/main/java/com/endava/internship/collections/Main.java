@@ -71,16 +71,6 @@ public class Main {
         studentList.add(andrei);
         System.out.println("Student set contine student list dupa modificare: " + studentSet.containsAll(studentList));
 
-        //To test containsAll() with other type then Student
-//        List<String> stringList = new ArrayList<>();
-//        stringList.add("test");
-//        try {
-//            System.out.println("Student set contine stringList: " + studentSet.containsAll(stringList));
-//
-//        } catch (UnsupportedOperationException e){
-//            e.printStackTrace();
-//        }
-
         System.out.println("\n retainAll()");
         System.out.println("Initial studentSet: ");
         for (Student stud : studentSet) {

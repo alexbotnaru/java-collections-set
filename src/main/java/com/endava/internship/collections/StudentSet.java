@@ -13,7 +13,7 @@ public class StudentSet<T> implements Set<T> {
 
     private static final Object DUMMY = new Object();
 
-    StudentSet() {
+    public StudentSet() {
         map = new TreeMap<>();
     }
 
@@ -34,7 +34,6 @@ public class StudentSet<T> implements Set<T> {
 
     @Override
     public Iterator<T> iterator() {
-        //TODO maybe implement own iterator
         return map.navigableKeySet().iterator();
     }
 
